@@ -1,4 +1,8 @@
-function TaskForm({ task, setTask, handleSubmit }) {
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
+
+function TaskForm() {
+  const { task, setTask, handleSubmit } = useContext(TaskContext);
   return (
     <form onSubmit={handleSubmit}>
          <input 

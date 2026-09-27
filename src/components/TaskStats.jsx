@@ -1,4 +1,9 @@
-function TaskStats({ tasks }) {
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
+
+function TaskStats() {
+  const { tasks } = useContext(TaskContext);
+
   const total = tasks.length;
 
   const completed = tasks.filter(

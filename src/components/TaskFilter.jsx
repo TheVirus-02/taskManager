@@ -1,5 +1,8 @@
-function TaskFilter({ filter, setFilter}){
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
 
+function TaskFilter(){
+  const {filter, setFilter} = useContext(TaskContext);
 return (
      <div>
       <button onClick={() => setFilter("all")}>

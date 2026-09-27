@@ -1,33 +1,28 @@
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
 import TaskItem from "./TaskItem";
 
-function TaskList({
-  filteredTasks,
-  editingTaskID,
-  editingTitle,
-  setEditingTitle,
-  toggleTask,
-  startEditing,
-  deleteTask,
-  saveEdit,
-  cancelEdit,
-}) {
+function TaskList() {
+  const { tasks, filteredTasks } = useContext(TaskContext);
+
   return (
-    <ul style={{ listStyleType: "none", padding: 0 }}>
-      {filteredTasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          editingTaskID={editingTaskID}
-          editingTitle={editingTitle}
-          setEditingTitle={setEditingTitle}
-          toggleTask={toggleTask}
-          startEditing={startEditing}
-          deleteTask={deleteTask}
-          saveEdit={saveEdit}
-          cancelEdit={cancelEdit}
-        />
-      ))}
-    </ul>
+    <>
+      {tasks.length === 0 && (
+        <p>No tasks yet. Add your First Task.</p>
+      )}
+
+      {tasks.length > 0 && filteredTasks.length === 0 && (
+        <p>No tasks found for this filter.</p>
+      )}
+
+      {filteredTasks.length > 0 && (
+        <ul style={{ listStyleType: "none", padding: 0 }}>
+          {filteredTasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
 

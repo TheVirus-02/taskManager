@@ -1,14 +1,18 @@
-function TaskItem({
-  task,
-  editingTaskID,
-  editingTitle,
-  setEditingTitle,
-  toggleTask,
-  startEditing,
-  deleteTask,
-  saveEdit,
-  cancelEdit,
-}) {
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
+
+function TaskItem({ task }) {
+  const {
+    editingTaskID,
+    editingTitle,
+    setEditingTitle,
+    toggleTask,
+    startEditing,
+    deleteTask,
+    saveEdit,
+    cancelEdit,
+  } = useContext(TaskContext);
+  
   return editingTaskID === task.id ? (
     <li>
       <input
