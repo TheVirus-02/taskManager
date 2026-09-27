@@ -104,7 +104,15 @@ function cancelEdit(){
         <button onClick={()=>setFilter("completed")}>Completed</button>
         <button onClick={clearCompleted}>Clear Completed Task</button>
       </div>
-    
+
+
+    {tasks.length === 0 && (
+      <p>No tasks yet. Add your First Task.</p>
+    )}
+    {
+      tasks.length > 0 && filteredTasks.length === 0 &&(
+        <p> No tasks found for this filter.</p>
+      )}
 
      <ul style={{ listStyleType: "none", padding: 0 }}>
           {filteredTasks.map((task) =>(
