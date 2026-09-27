@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { TaskContext } from "../context/TaskContext";
 
 function TaskForm() {
-  const { task, setTask, handleSubmit } = useContext(TaskContext);
+  const { task, setTask, handleSubmit, error} = useContext(TaskContext);
   return (
     <form onSubmit={handleSubmit}>
          <input 
@@ -12,6 +12,7 @@ function TaskForm() {
             onChange={(event) => setTask(event.target.value)}
         />
          <button type="submit"> Add task </button >
+         {error && <p>{error}</p>}
     </form>
   );
 }

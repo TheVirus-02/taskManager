@@ -19,6 +19,14 @@ function TaskItem({ task }) {
         type="text"
         value={editingTitle}
         onChange={(event) => setEditingTitle(event.target.value)}
+        onKeyDown={(e) =>{
+          if(e.key === "Enter"){
+            saveEdit();
+          }
+          if(e.key === "Escape"){
+            cancelEdit();
+          }
+        }}
       />
 
       <button onClick={saveEdit}>

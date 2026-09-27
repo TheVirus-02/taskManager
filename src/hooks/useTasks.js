@@ -11,7 +11,7 @@ function useTasks() {
   }, [tasks]);
   const [task, setTask] = useState("");
   const [filter, setFilter] = useState("all");
-
+  const [error, setError] = useState("");
   const [editingTaskID, setEditingTaskID] = useState(null);// which task is being edited.
   const [editingTitle, setEditingTitle] = useState("");// new title will be typed.
 
@@ -32,7 +32,11 @@ function useTasks() {
     function handleSubmit(event){
         event.preventDefault();
 
-        if (!task.trim()) return;
+        if (!task.trim()) {
+          setError("Task cannot be empty.");
+          return;
+        }
+        setError("");
 
         const newTask = {
             id: Date.now(),
@@ -98,7 +102,8 @@ return {
     setTask,
     filter,
     setFilter,
-    
+    error,
+    setError,
     editingTaskID,
     editingTitle,
     setEditingTitle,
