@@ -3,6 +3,8 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
   const [filter, setFilter] = useState("all");
+  const [editingTaskID, setEditingTaskId] = useState(null); // which task is being edited.
+  const [editingTitle, setEditingTitle] = useState(""); // new title will be typed.
 
   function handleSubmit(event){
     event.preventDefault();
@@ -53,6 +55,29 @@ function clearCompleted(){
   setTasks(tasks.filter((task)=> !task.completed));
 }
 
+function startEditing(task){
+  setEditingTaskId(task.id);
+  setEditingTitle(task.title);
+}
+
+function saveEdit(){
+  setTasks(
+    tasks.map((task) => {
+      if(task.id === editingTaskID){
+        return {
+          ...task,
+          title : editingTitle,
+        };
+      }
+
+      return task;
+    })
+  );
+
+  setEditingTaskId(null);
+  setEditingTitle("");
+}
+
   return (
     <div>
       <h1>Task Manager</h1>
@@ -61,14 +86,12 @@ function clearCompleted(){
         Total Task : {tasks.length} | Active Task : {tasks.filter((task)=>!task.completed).length} | Completed Task : {tasks.filter((task)=>task.completed).length}
       </p>
       <form onSubmit={handleSubmit}>
-          <input type="text"
-              onChange={
-              (event) => {
-                setTask(event.target.value)
-              }
-            } value={task}
+          <input 
+            type="text"
+            value={task}
+            onChange={(event) => setTask(event.target.value)}
         />
-         <button type="submit"> Add task </button>
+         <button type="submit"> Add task </button >
       </form>
       <div>
         <button onClick={()=> setFilter("all")}>All</button>
@@ -76,22 +99,39 @@ function clearCompleted(){
         <button onClick={()=>setFilter("completed")}>Completed</button>
         <button onClick={clearCompleted}>Clear Completed Task</button>
       </div>
+     
      <ul style={{ listStyleType: "none", padding: 0 }}>
-          {filteredTasks.map((task,index) =>(
+          {filteredTasks.map((task) =>(
+             editingTaskID === task.id ? (
             <li key={task.id}>
+              <input 
+                type="text"
+                value={editingTitle}
+                onChange={(event) => setEditingTitle(event.target.value)}  
+              />
+
+              <button onClick={saveEdit}>Save</button>
+              </li>
+      ) : (
+          <li key={task.id}>
+
               <button onClick={
                 () => toggleTask(task.id)}>
                 {task.completed ? "✓" : "○"}
                 {task.title}
               </button> 
+
+              <button onClick={() => startEditing(task)}>
+                Edit
+              </button>
+
               <button onClick={() => deleteTask(task.id)}>
-                  Delete
+                Delete
               </button>
             </li>
-          )
-        
-        
-        )}
+
+      )
+    ))}
           
      </ul>
     </div>
