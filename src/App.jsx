@@ -3,15 +3,33 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
 
-  function handleSubmit(){
+  function handleSubmit(event){
     event.preventDefault();
 
-    const newTask = {
-      id: Date.now(),
-      title: task,
-      completed: false,
-    };
-  }
+     if (!task.trim()) return;
+
+   setTasks([...tasks, {
+    id: Date.now(),
+    title: task.trim(),
+    completed: false,
+  }]);
+    setTask("");
+}
+
+  function toggleTask(id) {
+  setTasks(
+    tasks.map((task) => {
+      if (task.id === id) {
+        return {
+          ...task,
+          completed: !task.completed,
+        };
+      }
+
+      return task;
+    })
+  );
+}
 
   return (
     <div>
@@ -24,13 +42,19 @@ function App() {
               (event) => {
                 setTask(event.target.value)
               }
-            }
+            } value={task}
         />
          <button type="submit"> Add task </button>
       </form>
-     <ul>
+     <ul style={{ listStyleType: "none", padding: 0 }}>
           {tasks.map((task,index) =>(
-            <li key={task.id}>{task.title}</li>
+            <li key={task.id}>
+              <button onClick={
+                () => toggleTask(task.id)}>
+                {task.completed ? "✓" : "○"}
+                {task.title}
+              </button> 
+            </li>
           )
         
         
