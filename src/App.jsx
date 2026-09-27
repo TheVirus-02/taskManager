@@ -78,6 +78,11 @@ function saveEdit(){
   setEditingTitle("");
 }
 
+function cancelEdit(){
+  setEditingTaskId(null);
+  setEditingTitle("");
+}
+
   return (
     <div>
       <h1>Task Manager</h1>
@@ -99,7 +104,8 @@ function saveEdit(){
         <button onClick={()=>setFilter("completed")}>Completed</button>
         <button onClick={clearCompleted}>Clear Completed Task</button>
       </div>
-     
+    
+
      <ul style={{ listStyleType: "none", padding: 0 }}>
           {filteredTasks.map((task) =>(
              editingTaskID === task.id ? (
@@ -111,6 +117,7 @@ function saveEdit(){
               />
 
               <button onClick={saveEdit}>Save</button>
+              <button onClick={cancelEdit}> Cancel Edit</button>
               </li>
       ) : (
           <li key={task.id}>
