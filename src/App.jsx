@@ -31,6 +31,10 @@ function App() {
   );
 }
 
+function deleteTask(id) {
+  setTasks(tasks.filter((task) => task.id !== id));
+}
+
   return (
     <div>
       <h1>Task Manager</h1>
@@ -54,6 +58,9 @@ function App() {
                 {task.completed ? "✓" : "○"}
                 {task.title}
               </button> 
+              <button onClick={() => deleteTask(task.id)}>
+                  Delete
+              </button>
             </li>
           )
         
