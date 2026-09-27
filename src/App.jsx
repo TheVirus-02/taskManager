@@ -47,8 +47,11 @@ function getFilteredTasks(){
 
   return tasks;
 }
-
 const filteredTasks = getFilteredTasks();
+
+function clearCompleted(){
+  setTasks(tasks.filter((task)=> !task.completed));
+}
 
   return (
     <div>
@@ -71,6 +74,7 @@ const filteredTasks = getFilteredTasks();
         <button onClick={()=> setFilter("all")}>All</button>
         <button onClick={()=> setFilter("active")}>Active</button>
         <button onClick={()=>setFilter("completed")}>Completed</button>
+        <button onClick={clearCompleted}>Clear Completed Task</button>
       </div>
      <ul style={{ listStyleType: "none", padding: 0 }}>
           {filteredTasks.map((task,index) =>(
