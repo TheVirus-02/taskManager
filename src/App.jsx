@@ -2,6 +2,7 @@ import { useState } from 'react';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
+  const [filter, setFilter] = useState("all");
 
   function handleSubmit(event){
     event.preventDefault();
@@ -35,6 +36,20 @@ function deleteTask(id) {
   setTasks(tasks.filter((task) => task.id !== id));
 }
 
+function getFilteredTasks(){
+  if(filter === "active"){
+    return tasks.filter((task)=>!task.completed)
+  }
+
+  if(filter === "completed"){
+    return tasks.filter((task)=>task.completed)
+  }
+
+  return tasks;
+}
+
+const filteredTasks = getFilteredTasks();
+
   return (
     <div>
       <h1>Task Manager</h1>
@@ -52,8 +67,13 @@ function deleteTask(id) {
         />
          <button type="submit"> Add task </button>
       </form>
+      <div>
+        <button onClick={()=> setFilter("all")}>All</button>
+        <button onClick={()=> setFilter("active")}>Active</button>
+        <button onClick={()=>setFilter("completed")}>Completed</button>
+      </div>
      <ul style={{ listStyleType: "none", padding: 0 }}>
-          {tasks.map((task,index) =>(
+          {filteredTasks.map((task,index) =>(
             <li key={task.id}>
               <button onClick={
                 () => toggleTask(task.id)}>
