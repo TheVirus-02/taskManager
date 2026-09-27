@@ -39,7 +39,9 @@ function deleteTask(id) {
     <div>
       <h1>Task Manager</h1>
       <p>Manage your tasks easily.</p>
-      <p> Total Task : {tasks.length}</p>
+      <p> 
+        Total Task : {tasks.length} | Active Task : {tasks.filter((task)=>!task.completed).length} | Completed Task : {tasks.filter((task)=>task.completed).length}
+      </p>
       <form onSubmit={handleSubmit}>
           <input type="text"
               onChange={
