@@ -15,11 +15,20 @@ function TaskStats() {
   ).length;
 
   return (
-    <div>
-      <p>Total: {total}</p>
-      <p>Active: {active}</p>
-      <p>Completed: {completed}</p>
-    </div>
+    <section className="task-stats" aria-label="Task summary">
+      <div className="stat-card">
+        <span>Total</span>
+        <strong>{total}</strong>
+      </div>
+      <div className="stat-card active-stat">
+        <span>Active</span>
+        <strong>{active}</strong>
+      </div>
+      <div className="stat-card completed-stat">
+        <span>Completed</span>
+        <strong>{completed}</strong>
+      </div>
+    </section>
   );
 }
 

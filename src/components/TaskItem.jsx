@@ -14,7 +14,7 @@ function TaskItem({ task }) {
   } = useContext(TaskContext);
   
   return editingTaskID === task.id ? (
-    <li>
+    <li className="task-item editing-task">
       <input
         type="text"
         value={editingTitle}
@@ -29,25 +29,25 @@ function TaskItem({ task }) {
         }}
       />
 
-      <button onClick={saveEdit}>
+      <button className="save-button" type="button" onClick={saveEdit}>
         Save
       </button>
 
-      <button onClick={cancelEdit}>
+      <button className="cancel-button" type="button" onClick={cancelEdit}>
         Cancel
       </button>
     </li>
   ) : (
-    <li>
-      <button onClick={() => toggleTask(task.id)}>
+    <li className={`task-item ${task.completed ? "is-completed" : ""}`}>
+      <button className="task-toggle" type="button" onClick={() => toggleTask(task.id)}>
         {task.completed ? "✓" : "○"} {task.title}
       </button>
 
-      <button onClick={() => startEditing(task)}>
+      <button className="edit-button" type="button" onClick={() => startEditing(task)}>
         Edit
       </button>
 
-      <button onClick={() => deleteTask(task.id)}>
+      <button className="delete-button" type="button" onClick={() => deleteTask(task.id)}>
         Delete
       </button>
     </li>
